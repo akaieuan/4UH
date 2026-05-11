@@ -8,6 +8,8 @@ export interface PixelateProps {
   delay?: number
   /** Total resolve duration, in ms. */
   duration?: number
+  /** When the animation plays. `mount` (default) fires on load; `hover` fires on self or parent `.group` hover. */
+  trigger?: 'mount' | 'hover'
   /** Element tag. */
   as?: ElementType
   className?: string
@@ -30,19 +32,27 @@ export function Pixelate({
   text,
   delay = 0,
   duration = 1400,
+  trigger = 'mount',
   as: Component = 'span',
   className,
 }: PixelateProps) {
   const order = shuffledIndices(text.length)
   const stepMs = text.length > 0 ? Math.max(20, Math.floor(duration / text.length)) : 0
+  const isHover = trigger === 'hover'
 
   return (
-    <Component className={cn('inline-block', className)} aria-label={text}>
+    <Component
+      className={cn('inline-block', isHover && 'trickle-pixelate-hover', className)}
+      aria-label={text}
+    >
       {text.split('').map((char, i) => (
         <span
           key={i}
           aria-hidden="true"
-          className="inline-block whitespace-pre animate-trickle-pixelate"
+          className={cn(
+            'inline-block whitespace-pre',
+            isHover ? 'trickle-pixelate-char' : 'animate-trickle-pixelate'
+          )}
           style={
             {
               animationDelay: `${delay + (order[i] ?? 0) * stepMs}ms`,
