@@ -106,8 +106,17 @@ a:focus-visible {
   animation-name: trickle-pixelate;
 }
 
+/* Hover-triggered variant — chars are at their resolved state by default,
+   pixelate-in only when the wrapper (or its `.group` ancestor) is hovered. */
+.trickle-pixelate-hover:hover .trickle-pixelate-char,
+.group:hover .trickle-pixelate-char {
+  animation-name: trickle-pixelate;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .animate-trickle-pixelate {
+  .animate-trickle-pixelate,
+  .trickle-pixelate-hover:hover .trickle-pixelate-char,
+  .group:hover .trickle-pixelate-char {
     animation: none;
     filter: none;
     opacity: 1;
@@ -115,192 +124,3 @@ a:focus-visible {
   }
 }
 
-/* ────────────────────────────────────────────────────────────────
-   TrickleKit · GlitchSplit (#30) — broken-signal horizontal stutter
-   ──────────────────────────────────────────────────────────────── */
-.trickle-glitch-split::before,
-.trickle-glitch-split::after {
-  content: attr(data-text);
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0;
-}
-.trickle-glitch-split::before {
-  color: var(--trickle-glitch-a, oklch(75% 0.22 200));
-}
-.trickle-glitch-split::after {
-  color: var(--trickle-glitch-b, oklch(70% 0.27 320));
-}
-.trickle-glitch-loop::before {
-  animation: trickle-glitch-a 3s steps(1) infinite;
-}
-.trickle-glitch-loop::after {
-  animation: trickle-glitch-b 3s steps(1) infinite;
-}
-.trickle-glitch-split:hover::before,
-.group:hover .trickle-glitch-split::before {
-  animation: trickle-glitch-hover-a 0.55s steps(1) 1;
-}
-.trickle-glitch-split:hover::after,
-.group:hover .trickle-glitch-split::after {
-  animation: trickle-glitch-hover-b 0.55s steps(1) 1;
-}
-
-@keyframes trickle-glitch-a {
-  0%, 89%, 100% {
-    opacity: 0;
-    transform: translate(0, 0);
-    clip-path: inset(0);
-  }
-  90% {
-    opacity: 1;
-    transform: translate(-2px, 0);
-    clip-path: inset(20% 0 60% 0);
-  }
-  92% {
-    opacity: 1;
-    transform: translate(2px, -1px);
-    clip-path: inset(60% 0 10% 0);
-  }
-  94% {
-    opacity: 1;
-    transform: translate(-1px, 1px);
-    clip-path: inset(40% 0 30% 0);
-  }
-  96% {
-    opacity: 0;
-  }
-  98% {
-    opacity: 1;
-    transform: translate(1px, 0);
-    clip-path: inset(10% 0 70% 0);
-  }
-}
-@keyframes trickle-glitch-b {
-  0%, 89%, 100% {
-    opacity: 0;
-    transform: translate(0, 0);
-    clip-path: inset(0);
-  }
-  90% {
-    opacity: 1;
-    transform: translate(2px, 1px);
-    clip-path: inset(60% 0 20% 0);
-  }
-  92% {
-    opacity: 1;
-    transform: translate(-2px, 0);
-    clip-path: inset(10% 0 70% 0);
-  }
-  94% {
-    opacity: 1;
-    transform: translate(1px, -1px);
-    clip-path: inset(50% 0 30% 0);
-  }
-  96% {
-    opacity: 0;
-  }
-  98% {
-    opacity: 1;
-    transform: translate(-1px, 0);
-    clip-path: inset(70% 0 10% 0);
-  }
-}
-
-/* Hover trigger — spreads the glitch across the whole duration so it
-   reads as deliberate motion, not a render fault. Larger displacement
-   and varied clip-paths give a clearer broken-signal feel than the
-   loop variant (which is meant to be a brief stutter every 3s). */
-@keyframes trickle-glitch-hover-a {
-  0% {
-    opacity: 1;
-    transform: translate(-3px, 0);
-    clip-path: inset(15% 0 65% 0);
-  }
-  15% {
-    opacity: 1;
-    transform: translate(3px, -1px);
-    clip-path: inset(55% 0 15% 0);
-  }
-  30% {
-    opacity: 1;
-    transform: translate(-4px, 1px);
-    clip-path: inset(35% 0 35% 0);
-  }
-  45% {
-    opacity: 0;
-  }
-  60% {
-    opacity: 1;
-    transform: translate(2px, 0);
-    clip-path: inset(5% 0 75% 0);
-  }
-  75% {
-    opacity: 1;
-    transform: translate(-2px, -1px);
-    clip-path: inset(45% 0 30% 0);
-  }
-  90% {
-    opacity: 1;
-    transform: translate(3px, 1px);
-    clip-path: inset(70% 0 10% 0);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(0, 0);
-    clip-path: inset(0);
-  }
-}
-@keyframes trickle-glitch-hover-b {
-  0% {
-    opacity: 1;
-    transform: translate(3px, 1px);
-    clip-path: inset(60% 0 20% 0);
-  }
-  15% {
-    opacity: 1;
-    transform: translate(-3px, 0);
-    clip-path: inset(15% 0 65% 0);
-  }
-  30% {
-    opacity: 1;
-    transform: translate(2px, -1px);
-    clip-path: inset(45% 0 30% 0);
-  }
-  45% {
-    opacity: 0;
-  }
-  60% {
-    opacity: 1;
-    transform: translate(-3px, 1px);
-    clip-path: inset(70% 0 10% 0);
-  }
-  75% {
-    opacity: 1;
-    transform: translate(3px, 0);
-    clip-path: inset(25% 0 50% 0);
-  }
-  90% {
-    opacity: 1;
-    transform: translate(-2px, -1px);
-    clip-path: inset(5% 0 70% 0);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(0, 0);
-    clip-path: inset(0);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .trickle-glitch-loop::before,
-  .trickle-glitch-loop::after,
-  .trickle-glitch-split:hover::before,
-  .trickle-glitch-split:hover::after,
-  .group:hover .trickle-glitch-split::before,
-  .group:hover .trickle-glitch-split::after {
-    animation: none;
-    opacity: 0;
-  }
-}
