@@ -4,7 +4,7 @@ export const akaIeuan: Artist = {
   slug: 'aka-ieuan',
   name: 'aka ieuan',
   location: 'Brooklyn, NY',
-  tagline: 'Live-recorded hypnotic techno · DnB · Tech-House',
+  tagline: 'Live-recorded hypnotic techno · FKA//yion',
   bio: [
     'aka ieuan is a Brooklyn-born & based electronic musician crafting live-recorded, hypnotic techno compositions that combine his love of underground rap, alt-rock/metal, electronic music, and classical guitar. Known under various aliases including akaieuan, Mr.M4UH, abletonlivee, and yion, he has spent six years developing a sound that spans DnB, Tech-House, and Techno accumulating over 3 million streams across all platforms.',
     'Growing up in Brooklyn and playing music from a young age, akaieuan draws from a diverse palette of influences to create melancholic yet energetic sounds. Inspired by live acts like Luke Slater, UFO95, and Rødhåd, his sets craft an evolving, hypnotic atmosphere that encourages movement, self-reflection, and healing.',
