@@ -25,6 +25,12 @@ export const akaIeuan: Artist = {
 
   djSets: [
     {
+      url: 'https://soundcloud.com/akaieuan/sets/vm4uh-vitamixes-4-ur-health',
+      title: 'VM4UH — VitaMixes 4 Ur Health',
+      color: '%2344ddaa',
+      isPlaylist: true,
+    },
+    {
       url: 'https://soundcloud.com/akaieuan/akaieuan-for-agape-w-kuko-012426-hypnotic-techno',
       title: 'aka ieuan for AGAPE w/ KUKO 012426',
       color: '%2344ddaa',
