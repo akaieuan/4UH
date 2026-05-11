@@ -4,11 +4,15 @@ import { VideoHero } from '@/components/hero/video-hero'
 import { Pixelate } from '@/components/effects/pixelate'
 import { GlitchSplit } from '@/components/effects/glitch-split'
 import { akaIeuan } from '@/data/artists/aka-ieuan'
+import { aoiTaira } from '@/data/artists/aoi-taira'
 import { artistList } from '@/data/artists'
 
 const embedShell = 'overflow-hidden rounded-md border border-border bg-card/30'
 
 export default function HomePage() {
+  const akaSets = akaIeuan.djSets ?? []
+  const aoiVideo = aoiTaira.videos?.[0]
+
   return (
     <>
       <VideoHero>
@@ -19,38 +23,19 @@ export default function HomePage() {
         />
       </VideoHero>
 
-      {/* Listen — SoundCloud-only, no white-space Spotify issues */}
+      {/* Listen — both artists, no playlists, no white-space Spotify */}
       <section className="bg-black pt-20 sm:pt-28 pb-12 sm:pb-16">
         <div className="mx-auto max-w-site site-inset">
           <p className="text-[11px] uppercase tracking-[0.22em] text-foreground/40 font-light mb-6">
             Listen
           </p>
 
-          {akaIeuan.soundcloudPlaylist && (
-            <div className="mb-6 sm:mb-8">
-              <p className="text-[11px] uppercase tracking-[0.18em] text-foreground/45 mb-2.5">
-                Featured · {akaIeuan.soundcloudPlaylist.title}
-              </p>
-              <div className={embedShell}>
-                <iframe
-                  width="100%"
-                  height="300"
-                  scrolling="no"
-                  frameBorder="no"
-                  allow="autoplay"
-                  className="h-[260px] sm:h-[300px] block"
-                  src={`https://w.soundcloud.com/player/?url=${akaIeuan.soundcloudPlaylist.url}&color=%23ffffff&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true`}
-                />
-              </div>
-            </div>
-          )}
-
-          {akaIeuan.djSets && akaIeuan.djSets.length > 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-              {akaIeuan.djSets.map((set, i) => (
+          {akaSets.length > 0 && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
+              {akaSets.map((set, i) => (
                 <div key={i}>
                   <p className="text-[11px] uppercase tracking-[0.18em] text-foreground/45 mb-2.5 truncate">
-                    {set.title ?? 'Set'}
+                    aka ieuan — {set.title ?? 'Set'}
                   </p>
                   <div className={embedShell}>
                     <iframe
@@ -68,6 +53,26 @@ export default function HomePage() {
             </div>
           )}
 
+          {aoiVideo && (
+            <div>
+              <p className="text-[11px] uppercase tracking-[0.18em] text-foreground/45 mb-2.5 truncate">
+                Aoi Taira — {aoiVideo.title ?? 'Video'}
+              </p>
+              <div className={`aspect-video max-w-3xl ${embedShell}`}>
+                <iframe
+                  width="100%"
+                  height="100%"
+                  src={`https://www.youtube.com/embed/${aoiVideo.videoId}`}
+                  title={aoiVideo.title ?? 'Aoi Taira'}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="h-full w-full"
+                />
+              </div>
+            </div>
+          )}
+
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-[12px] font-light text-foreground/50">
             {akaIeuan.links.soundcloud && (
               <a
@@ -76,17 +81,17 @@ export default function HomePage() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 hover:text-foreground transition-colors"
               >
-                SoundCloud <ArrowUpRight className="h-3 w-3" strokeWidth={1.25} />
+                aka ieuan — SoundCloud <ArrowUpRight className="h-3 w-3" strokeWidth={1.25} />
               </a>
             )}
-            {akaIeuan.links.spotify && (
+            {aoiTaira.links.soundcloud && (
               <a
-                href={akaIeuan.links.spotify}
+                href={aoiTaira.links.soundcloud}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 hover:text-foreground transition-colors"
               >
-                Spotify <ArrowUpRight className="h-3 w-3" strokeWidth={1.25} />
+                Aoi Taira — SoundCloud <ArrowUpRight className="h-3 w-3" strokeWidth={1.25} />
               </a>
             )}
             {akaIeuan.links.bandcamp && (
