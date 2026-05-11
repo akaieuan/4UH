@@ -1,22 +1,16 @@
-import Link from 'next/link'
-import { ArrowUpRight, ArrowLeft } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import type { Artist, Release, Show } from '@/data/types'
 import { Collapsible } from './collapsible'
+import { BackLink } from '@/components/layout/back-link'
 
 export function ArtistPage({ artist }: { artist: Artist }) {
   const upcomingShows = artist.shows.filter(s => !s.isPast)
   const pastShows = artist.shows.filter(s => s.isPast)
 
   return (
-    <article className="pt-28 sm:pt-32 pb-24 sm:pb-28">
+    <article className="pt-28 sm:pt-32 pb-16 sm:pb-20">
       <div className="mx-auto max-w-site site-inset">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-1.5 text-[12px] tracking-wide text-foreground/45 hover:text-foreground transition-colors"
-        >
-          <ArrowLeft className="h-3.5 w-3.5" strokeWidth={1.25} />
-          Back
-        </Link>
+        <BackLink />
 
         <header className="mt-10 sm:mt-14 max-w-2xl">
           <h1 className="text-lg font-light tracking-tight text-foreground">

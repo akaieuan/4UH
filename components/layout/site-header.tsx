@@ -42,9 +42,9 @@ export function SiteHeader() {
         <Link
           href="/"
           className="text-[13px] font-light tracking-[0.32em] text-foreground transition-opacity hover:opacity-70"
-          aria-label="4UH home"
+          aria-label="4UHNYC home"
         >
-          4UH
+          4UHNYC
         </Link>
 
         <nav className="hidden md:flex items-center gap-8" aria-label="Primary">
@@ -76,7 +76,7 @@ export function SiteHeader() {
             </button>
           </SheetTrigger>
           <SheetContent side="right" className="bg-black border-l border-border">
-            <SheetTitle className="text-[13px] font-light tracking-[0.32em]">4UH</SheetTitle>
+            <SheetTitle className="text-[13px] font-light tracking-[0.32em]">4UHNYC</SheetTitle>
             <nav className="mt-10 flex flex-col gap-6" aria-label="Mobile primary">
               {NAV_LINKS.map(link => {
                 const active = pathname === link.href || pathname.startsWith(`${link.href}/`)

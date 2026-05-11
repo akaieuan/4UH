@@ -1,8 +1,9 @@
 import { ArrowUpRight } from 'lucide-react'
+import { BackLink } from '@/components/layout/back-link'
 
 export const metadata = {
-  title: 'Contact — 4UH',
-  description: 'Booking and demo submissions for the 4UH label.',
+  title: 'Contact — 4UHNYC',
+  description: 'Booking and demo submissions for the 4UHNYC label.',
 }
 
 const CONTACTS = [
@@ -24,9 +25,10 @@ const CONTACTS = [
 
 export default function ContactPage() {
   return (
-    <div className="pt-28 sm:pt-32 pb-24 sm:pb-28">
+    <div className="pt-28 sm:pt-32 pb-16 sm:pb-20">
       <div className="mx-auto max-w-site site-inset">
-        <h1 className="text-lg font-light tracking-tight text-foreground">
+        <BackLink />
+        <h1 className="mt-10 sm:mt-14 text-lg font-light tracking-tight text-foreground">
           Contact.
         </h1>
         <p className="mt-1.5 text-sm font-light text-foreground/55">

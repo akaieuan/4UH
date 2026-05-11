@@ -1,18 +1,20 @@
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 import { GlitchSplit } from '@/components/effects/glitch-split'
+import { BackLink } from '@/components/layout/back-link'
 import { artistList } from '@/data/artists'
 
 export const metadata = {
-  title: 'Artists — 4UH',
-  description: 'The 4UH roster.',
+  title: 'Artists — 4UHNYC',
+  description: 'The 4UHNYC roster.',
 }
 
 export default function ArtistsIndexPage() {
   return (
-    <div className="pt-28 sm:pt-32 pb-24 sm:pb-28">
+    <div className="pt-28 sm:pt-32 pb-16 sm:pb-20">
       <div className="mx-auto max-w-site site-inset">
-        <ul>
+        <BackLink />
+        <ul className="mt-10 sm:mt-14">
           {artistList.map(artist => (
             <li key={artist.slug}>
               <Link

@@ -5,7 +5,7 @@ export function SiteFooter() {
     <footer className="bg-black mt-24">
       <div className="mx-auto max-w-site site-inset py-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
         <div className="flex items-baseline gap-4">
-          <span className="text-[13px] font-light tracking-[0.32em] text-foreground">4UH</span>
+          <span className="text-[13px] font-light tracking-[0.32em] text-foreground">4UHNYC</span>
           <span className="text-[10px] uppercase tracking-[0.22em] text-foreground/40">
             Brooklyn · NYC
           </span>
@@ -24,7 +24,7 @@ export function SiteFooter() {
       </div>
       <div className="mx-auto max-w-site site-inset pb-8">
         <p className="text-[10px] font-light tracking-wide text-foreground/30">
-          © {new Date().getFullYear()} 4UH
+          © {new Date().getFullYear()} 4UHNYC
         </p>
       </div>
     </footer>

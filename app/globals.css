@@ -140,11 +140,11 @@ a:focus-visible {
 }
 .trickle-glitch-split:hover::before,
 .group:hover .trickle-glitch-split::before {
-  animation: trickle-glitch-a 0.4s steps(1) 1;
+  animation: trickle-glitch-hover-a 0.55s steps(1) 1;
 }
 .trickle-glitch-split:hover::after,
 .group:hover .trickle-glitch-split::after {
-  animation: trickle-glitch-b 0.4s steps(1) 1;
+  animation: trickle-glitch-hover-b 0.55s steps(1) 1;
 }
 
 @keyframes trickle-glitch-a {
@@ -205,6 +205,91 @@ a:focus-visible {
     opacity: 1;
     transform: translate(-1px, 0);
     clip-path: inset(70% 0 10% 0);
+  }
+}
+
+/* Hover trigger — spreads the glitch across the whole duration so it
+   reads as deliberate motion, not a render fault. Larger displacement
+   and varied clip-paths give a clearer broken-signal feel than the
+   loop variant (which is meant to be a brief stutter every 3s). */
+@keyframes trickle-glitch-hover-a {
+  0% {
+    opacity: 1;
+    transform: translate(-3px, 0);
+    clip-path: inset(15% 0 65% 0);
+  }
+  15% {
+    opacity: 1;
+    transform: translate(3px, -1px);
+    clip-path: inset(55% 0 15% 0);
+  }
+  30% {
+    opacity: 1;
+    transform: translate(-4px, 1px);
+    clip-path: inset(35% 0 35% 0);
+  }
+  45% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+    transform: translate(2px, 0);
+    clip-path: inset(5% 0 75% 0);
+  }
+  75% {
+    opacity: 1;
+    transform: translate(-2px, -1px);
+    clip-path: inset(45% 0 30% 0);
+  }
+  90% {
+    opacity: 1;
+    transform: translate(3px, 1px);
+    clip-path: inset(70% 0 10% 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(0, 0);
+    clip-path: inset(0);
+  }
+}
+@keyframes trickle-glitch-hover-b {
+  0% {
+    opacity: 1;
+    transform: translate(3px, 1px);
+    clip-path: inset(60% 0 20% 0);
+  }
+  15% {
+    opacity: 1;
+    transform: translate(-3px, 0);
+    clip-path: inset(15% 0 65% 0);
+  }
+  30% {
+    opacity: 1;
+    transform: translate(2px, -1px);
+    clip-path: inset(45% 0 30% 0);
+  }
+  45% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+    transform: translate(-3px, 1px);
+    clip-path: inset(70% 0 10% 0);
+  }
+  75% {
+    opacity: 1;
+    transform: translate(3px, 0);
+    clip-path: inset(25% 0 50% 0);
+  }
+  90% {
+    opacity: 1;
+    transform: translate(-2px, -1px);
+    clip-path: inset(5% 0 70% 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(0, 0);
+    clip-path: inset(0);
   }
 }
 
