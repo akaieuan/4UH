@@ -35,11 +35,6 @@ export const akaIeuan: Artist = {
       title: 'aka ieuan for AGAPE w/ KUKO 012426',
       color: '%2344ddaa',
     },
-    {
-      url: 'https://soundcloud.com/akaieuan/nevstv-aka-ieuan-hypnotic',
-      title: 'nevstv: aka ieuan',
-      color: '%2344ddaa',
-    },
   ],
 
   soundcloudPlaylist: {
@@ -50,7 +45,9 @@ export const akaIeuan: Artist = {
   },
 
   videos: [
-    { videoId: 'hqsTCdA-QfQ', title: 'aka ieuan — video' },
+    { videoId: 'jB0BhBb6szk', title: 'Techno Mix // aka ieuan // Le Petit Box Radio 110' },
+    { videoId: '87kn2h5dQJk', title: 'AKA[IEUAN] | Hypnotic Techno & Hard-Groove | TiNC MIXTAPE 021' },
+    { videoId: '_POM7LKmdnk', title: 'AKA[IEUAN] | Hypnotic Techno Set // 078' },
   ],
 
   releases: [

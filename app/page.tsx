@@ -10,8 +10,10 @@ import { artistList } from '@/data/artists'
 const embedShell = 'overflow-hidden rounded-md border border-border bg-card/30'
 
 export default function HomePage() {
-  const akaSets = akaIeuan.djSets ?? []
+  // AKA's first video (jB0BhBb6szk) goes on home alongside the mixes playlist.
+  const akaHomeVideo = akaIeuan.videos?.[0]
   const aoiVideo = aoiTaira.videos?.[0]
+  const vm4uhPlaylist = akaIeuan.soundcloudPlaylist
 
   return (
     <>
@@ -23,55 +25,72 @@ export default function HomePage() {
         />
       </VideoHero>
 
-      {/* Listen — both artists, no playlists, no white-space Spotify */}
+      {/* Listen — VM4UH mixes playlist + a video per artist */}
       <section className="bg-black pt-20 sm:pt-28 pb-12 sm:pb-16">
         <div className="mx-auto max-w-site site-inset">
           <p className="text-[11px] uppercase tracking-[0.22em] text-foreground/40 font-light mb-6">
             Listen
           </p>
 
-          {akaSets.length > 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
-              {akaSets.map((set, i) => (
-                <div key={i}>
-                  <p className="text-[11px] uppercase tracking-[0.18em] text-foreground/45 mb-2.5 truncate">
-                    aka ieuan — {set.title ?? 'Set'}
-                  </p>
-                  <div className={embedShell}>
-                    <iframe
-                      width="100%"
-                      height="166"
-                      scrolling="no"
-                      frameBorder="no"
-                      allow="autoplay"
-                      className="h-[140px] sm:h-[166px] block"
-                      src={`https://w.soundcloud.com/player/?url=${encodeURIComponent(set.url)}&color=%23ffffff&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true`}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {aoiVideo && (
-            <div>
+          {vm4uhPlaylist && (
+            <div className="mb-6 sm:mb-8">
               <p className="text-[11px] uppercase tracking-[0.18em] text-foreground/45 mb-2.5 truncate">
-                Aoi Taira — {aoiVideo.title ?? 'Video'}
+                aka ieuan — {vm4uhPlaylist.title}
               </p>
-              <div className={`aspect-video max-w-3xl ${embedShell}`}>
+              <div className={embedShell}>
                 <iframe
                   width="100%"
-                  height="100%"
-                  src={`https://www.youtube.com/embed/${aoiVideo.videoId}`}
-                  title={aoiVideo.title ?? 'Aoi Taira'}
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="h-full w-full"
+                  height="300"
+                  scrolling="no"
+                  frameBorder="no"
+                  allow="autoplay"
+                  className="h-[260px] sm:h-[300px] block"
+                  src={`https://w.soundcloud.com/player/?url=${vm4uhPlaylist.url}&color=%23ffffff&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true`}
                 />
               </div>
             </div>
           )}
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+            {akaHomeVideo && (
+              <div>
+                <p className="text-[11px] uppercase tracking-[0.18em] text-foreground/45 mb-2.5 truncate">
+                  aka ieuan — {akaHomeVideo.title}
+                </p>
+                <div className={`aspect-video ${embedShell}`}>
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src={`https://www.youtube.com/embed/${akaHomeVideo.videoId}`}
+                    title={akaHomeVideo.title ?? 'aka ieuan'}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="h-full w-full"
+                  />
+                </div>
+              </div>
+            )}
+            {aoiVideo && (
+              <div>
+                <p className="text-[11px] uppercase tracking-[0.18em] text-foreground/45 mb-2.5 truncate">
+                  Aoi Taira — {aoiVideo.title}
+                </p>
+                <div className={`aspect-video ${embedShell}`}>
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src={`https://www.youtube.com/embed/${aoiVideo.videoId}`}
+                    title={aoiVideo.title ?? 'Aoi Taira'}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="h-full w-full"
+                  />
+                </div>
+              </div>
+            )}
+          </div>
 
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-[12px] font-light text-foreground/50">
             {akaIeuan.links.soundcloud && (
