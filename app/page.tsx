@@ -34,9 +34,6 @@ export default function HomePage() {
 
           {vm4uhPlaylist && (
             <div className="mb-6 sm:mb-8">
-              <p className="text-[11px] uppercase tracking-[0.18em] text-foreground/45 mb-2.5 truncate">
-                aka ieuan — {vm4uhPlaylist.title}
-              </p>
               <div className={embedShell}>
                 <iframe
                   width="100%"
