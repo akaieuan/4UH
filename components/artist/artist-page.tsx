@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { ArrowUpRight, ArrowLeft } from 'lucide-react'
 import type { Artist, Release, Show } from '@/data/types'
+import { Collapsible } from './collapsible'
 
 export function ArtistPage({ artist }: { artist: Artist }) {
   const upcomingShows = artist.shows.filter(s => !s.isPast)
@@ -44,9 +45,11 @@ export function ArtistPage({ artist }: { artist: Artist }) {
           emptyText="First release coming soon."
           allLink={artist.links.bandcamp ? { href: artist.links.bandcamp, text: 'All on Bandcamp' } : undefined}
         >
-          {artist.releases.map((r, i) => (
-            <ReleaseRow key={i} release={r} />
-          ))}
+          <Collapsible initialCount={8}>
+            {artist.releases.map((r, i) => (
+              <ReleaseRow key={i} release={r} />
+            ))}
+          </Collapsible>
         </ListSection>
 
         <ListSection
@@ -62,9 +65,11 @@ export function ArtistPage({ artist }: { artist: Artist }) {
           {pastShows.length > 0 && (
             <SubLabel className={upcomingShows.length > 0 ? 'mt-6' : ''}>Past</SubLabel>
           )}
-          {pastShows.map((s, i) => (
-            <ShowRow key={`p-${i}`} show={s} dim />
-          ))}
+          <Collapsible initialCount={8}>
+            {pastShows.map((s, i) => (
+              <ShowRow key={`p-${i}`} show={s} dim />
+            ))}
+          </Collapsible>
         </ListSection>
 
         <ListSection
