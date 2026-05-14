@@ -9,9 +9,9 @@ import { artistList } from '@/data/artists'
 const embedShell = 'overflow-hidden rounded-md border border-border bg-card/30'
 
 export default function HomePage() {
-  // AKA's first video (jB0BhBb6szk) goes on home alongside the mixes playlist.
+  // Home grid: AKA's first YouTube video paired with Aoi's first SoundCloud set.
   const akaHomeVideo = akaIeuan.videos?.[0]
-  const aoiVideo = aoiTaira.videos?.[0]
+  const aoiSet = aoiTaira.djSets?.[0]
   const vm4uhPlaylist = akaIeuan.soundcloudPlaylist
 
   return (
@@ -67,20 +67,20 @@ export default function HomePage() {
                 </div>
               </div>
             )}
-            {aoiVideo && (
+            {aoiSet && (
               <div>
                 <p className="text-[11px] uppercase tracking-[0.18em] text-foreground/45 mb-2.5 truncate">
-                  Aoi Taira — {aoiVideo.title}
+                  Aoi Taira — {aoiSet.title}
                 </p>
                 <div className={`aspect-video ${embedShell}`}>
                   <iframe
                     width="100%"
                     height="100%"
-                    src={`https://www.youtube.com/embed/${aoiVideo.videoId}`}
-                    title={aoiVideo.title ?? 'Aoi Taira'}
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
+                    scrolling="no"
+                    frameBorder="no"
+                    allow="autoplay"
+                    title={aoiSet.title ?? 'Aoi Taira'}
+                    src={`https://w.soundcloud.com/player/?url=${encodeURIComponent(aoiSet.url)}&color=%23ffffff&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true`}
                     className="h-full w-full"
                   />
                 </div>
