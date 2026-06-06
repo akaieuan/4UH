@@ -5,6 +5,7 @@ export const akaIeuan: Artist = {
   name: 'aka ieuan',
   location: 'Brooklyn, NY',
   tagline: 'Live-recorded hypnotic techno · FKA//yion',
+  headerImage: '/artists/aka-ieuan-header.jpg',
   bio: [
     'aka ieuan is a Brooklyn-born & based electronic musician crafting live-recorded, hypnotic techno compositions that combine his love of underground rap, alt-rock/metal, electronic music, and classical guitar. Known under various aliases including akaieuan, Mr.M4UH, abletonlivee, and yion, he has spent six years developing a sound that spans DnB, Tech-House, and Techno accumulating over 3 million streams across all platforms.',
     'Growing up in Brooklyn and playing music from a young age, akaieuan draws from a diverse palette of influences to create melancholic yet energetic sounds. Inspired by live acts like Luke Slater, UFO95, and Rødhåd, his sets craft an evolving, hypnotic atmosphere that encourages movement, self-reflection, and healing.',
@@ -37,18 +38,40 @@ export const akaIeuan: Artist = {
     },
   ],
 
+  // Featured release shown as the top embed on the artist page (and the
+  // home-page Listen surface).
   soundcloudPlaylist: {
     url: 'https://api.soundcloud.com/playlists/soundcloud%253Aplaylists%253A2152603196',
-    title: 'VM4UH — VitaMixes 4 Ur Health',
-    color: '%232eff00',
+    title: 'aka/Releases/All',
+    color: '%231c043c',
     isPlaylist: true,
   },
 
+  // Additional curated SoundCloud playlists for the "Playlists" section.
+  soundcloudPlaylists: [
+    {
+      url: 'https://api.soundcloud.com/playlists/soundcloud%253Aplaylists%253A1891124048',
+      title: 'aka/Releases/Health+',
+      color: '%23ffffff',
+      isPlaylist: true,
+    },
+  ],
+
+  // Sets section is this single embed instead of a list — VM4UH mixes.
+  setsPlaylist: {
+    url: 'https://api.soundcloud.com/playlists/soundcloud%253Aplaylists%253A1876877894',
+    title: 'VM4UH — VitaMixes 4 Ur Health',
+    color: '%23ffffff',
+    isPlaylist: true,
+  },
+
+  // First video is rendered as the featured playable embed at the top of
+  // the Video section; the rest become a tracklist below.
   videos: [
+    { videoId: '7fXaiPon6Cc', title: 'AKA IEUAN | BELOW GRŪND | JUNE 5 | 2026' },
     { videoId: 'jB0BhBb6szk', title: 'Techno Mix // aka ieuan // Le Petit Box Radio 110' },
     { videoId: '87kn2h5dQJk', title: 'AKA[IEUAN] | Hypnotic Techno & Hard-Groove | TiNC MIXTAPE 021' },
     { videoId: '_POM7LKmdnk', title: 'AKA[IEUAN] | Hypnotic Techno Set // 078' },
-    { videoId: '7fXaiPon6Cc', title: 'AKA IEUAN | BELOW GRŪND | JUNE 5 | 2026' },
   ],
 
   releases: [
@@ -104,5 +127,11 @@ export const akaIeuan: Artist = {
     soundcloud: 'https://soundcloud.com/akaieuan',
     bandcamp: 'https://akaieuan.bandcamp.com',
     ra: 'https://ra.co/dj/akaieuan',
+  },
+
+  fka: {
+    name: 'yion',
+    bio: 'Past alias from the dnb, idm, and tech-house years — over 4M streams across platforms. Still posted on occasionally.',
+    spotify: { kind: 'artist', id: '0SKj35DCAPNfu3KVUBTiVE', title: 'yion' },
   },
 }

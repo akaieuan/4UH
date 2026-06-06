@@ -17,6 +17,9 @@ const config: Config = {
       maxWidth: {
         site: '1180px',
       },
+      fontFamily: {
+        mono: ['var(--font-geist-mono)', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+      },
       colors: {
         border: 'var(--border)',
         input: 'var(--input)',
