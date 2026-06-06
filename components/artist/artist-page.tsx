@@ -21,8 +21,11 @@ export function ArtistPage({ artist }: { artist: Artist }) {
         <p className="text-sm font-light text-foreground/45">Bio coming soon.</p>
       )}
 
+      <ProfileStrip artist={artist} />
+
       <ListSection
         title="Releases"
+        count={artist.releases.length}
         empty={artist.releases.length === 0}
         emptyText="First release coming soon."
         allLink={artist.links.bandcamp ? { href: artist.links.bandcamp, text: 'All on Bandcamp' } : undefined}
@@ -36,6 +39,7 @@ export function ArtistPage({ artist }: { artist: Artist }) {
 
       <ListSection
         title="Shows"
+        count={artist.shows.length}
         empty={artist.shows.length === 0}
         emptyText="No shows announced yet."
         allLink={artist.links.ra ? { href: artist.links.ra, text: 'All on Resident Advisor' } : undefined}
@@ -56,55 +60,91 @@ export function ArtistPage({ artist }: { artist: Artist }) {
 
       <ListSection
         title="Sets"
+        count={artist.djSets?.length ?? 0}
         empty={!artist.djSets || artist.djSets.length === 0}
         emptyText="No mixes yet."
         allLink={artist.links.soundcloud ? { href: artist.links.soundcloud, text: 'All on SoundCloud' } : undefined}
       >
         {artist.djSets?.map((set, i) => (
-          <Row key={i} href={set.url} title={set.title ?? 'Untitled mix'} meta="SoundCloud" />
+          <SimpleRow key={i} href={set.url} title={set.title ?? 'Untitled mix'} />
         ))}
       </ListSection>
 
       <ListSection
         title="Video"
+        count={artist.videos?.length ?? 0}
         empty={!artist.videos || artist.videos.length === 0}
         emptyText="No videos yet."
       >
         {artist.videos?.map((v, i) => (
-          <Row
+          <SimpleRow
             key={i}
             href={`https://www.youtube.com/watch?v=${v.videoId}`}
             title={v.title ?? 'Video'}
-            meta="YouTube"
           />
-        ))}
-      </ListSection>
-
-      <ListSection title="Links" empty={!hasAnyLink(artist)} emptyText="Links coming soon.">
-        {artist.links.spotify && <Row href={artist.links.spotify} title="Spotify" />}
-        {artist.links.soundcloud && <Row href={artist.links.soundcloud} title="SoundCloud" />}
-        {artist.links.bandcamp && <Row href={artist.links.bandcamp} title="Bandcamp" />}
-        {artist.links.ra && <Row href={artist.links.ra} title="Resident Advisor" />}
-        {artist.links.instagram && <Row href={artist.links.instagram} title="Instagram" />}
-        {artist.links.twitter && <Row href={artist.links.twitter} title="Twitter" />}
-        {artist.links.extra?.map((link, i) => (
-          <Row key={`extra-${i}`} href={link.url} title={link.label} />
         ))}
       </ListSection>
     </PageShell>
   )
 }
 
-/* ─────────────────────────────────────── */
+/* ──────────────────────────────────────────────────────────────────
+   Sub-components
+   ────────────────────────────────────────────────────────────────── */
+
+/**
+ * Profile strip — one inline row of where-to-find-them links sitting
+ * right under the bio. Replaces a full bottom-of-page "Links" section
+ * AND the redundant "Bandcamp / RA / SoundCloud / YouTube" tags on
+ * every release/show/set/video row below.
+ */
+function ProfileStrip({ artist }: { artist: Artist }) {
+  const items: Array<{ label: string; href: string }> = []
+  if (artist.links.spotify) items.push({ label: 'Spotify', href: artist.links.spotify })
+  if (artist.links.soundcloud) items.push({ label: 'SoundCloud', href: artist.links.soundcloud })
+  if (artist.links.bandcamp) items.push({ label: 'Bandcamp', href: artist.links.bandcamp })
+  if (artist.links.ra) items.push({ label: 'Resident Advisor', href: artist.links.ra })
+  if (artist.links.instagram) items.push({ label: 'Instagram', href: artist.links.instagram })
+  if (artist.links.twitter) items.push({ label: 'Twitter', href: artist.links.twitter })
+  if (artist.links.extra) {
+    for (const e of artist.links.extra) items.push({ label: e.label, href: e.url })
+  }
+  if (items.length === 0) return null
+
+  return (
+    <nav
+      aria-label="Profiles"
+      className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-[12px] font-light"
+    >
+      {items.map(item => (
+        <a
+          key={item.href}
+          href={item.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group inline-flex items-center gap-1 text-foreground/55 hover:text-foreground transition-colors"
+        >
+          {item.label}
+          <ArrowUpRight
+            className="h-3 w-3 text-foreground/30 group-hover:text-foreground transition-colors"
+            strokeWidth={1.25}
+          />
+        </a>
+      ))}
+    </nav>
+  )
+}
 
 function ListSection({
   title,
+  count,
   children,
   empty,
   emptyText,
   allLink,
 }: {
   title: string
+  count?: number
   children: React.ReactNode
   empty?: boolean
   emptyText?: string
@@ -112,9 +152,16 @@ function ListSection({
 }) {
   return (
     <section className="mt-14 sm:mt-16">
-      <h2 className="text-[11px] uppercase tracking-[0.22em] text-foreground/40 font-light mb-5">
-        {title}
-      </h2>
+      <div className="mb-5 flex items-baseline gap-2">
+        <h2 className="text-[11px] uppercase tracking-[0.22em] text-foreground/40 font-light">
+          {title}
+        </h2>
+        {count !== undefined && count > 0 && (
+          <span className="text-[11px] font-light tabular-nums text-foreground/25">
+            {count}
+          </span>
+        )}
+      </div>
       {empty ? (
         <p className="text-sm font-light text-foreground/45">{emptyText}</p>
       ) : (
@@ -125,107 +172,123 @@ function ListSection({
           href={allLink.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-6 inline-flex items-center gap-1.5 text-[12px] font-light text-foreground/50 hover:text-foreground transition-colors"
+          className="group mt-6 inline-flex items-center gap-1.5 text-[12px] font-light text-foreground/50 hover:text-foreground transition-colors"
         >
-          {allLink.text} <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={1.25} />
+          {allLink.text}
+          <ArrowUpRight
+            className="h-3.5 w-3.5 text-foreground/30 group-hover:text-foreground transition-colors"
+            strokeWidth={1.25}
+          />
         </a>
       )}
     </section>
   )
 }
 
-function SubLabel({ children, className = '' }: { children: React.ReactNode; className?: string }) {
+function SubLabel({
+  children,
+  className = '',
+}: {
+  children: React.ReactNode
+  className?: string
+}) {
   return (
-    <li className={`list-none mb-3 text-[11px] uppercase tracking-[0.22em] text-foreground/35 font-light ${className}`}>
+    <li
+      className={`list-none mb-3 text-[11px] uppercase tracking-[0.22em] text-foreground/35 font-light ${className}`}
+    >
       {children}
     </li>
   )
 }
 
-function Row({
-  href,
-  title,
-  meta,
-  dim,
-  leading,
-}: {
-  href: string
-  title: string
-  /** Right-side metadata label (e.g. "Bandcamp", "RA"). */
-  meta?: string
-  /** Left-side leading info (e.g. release catalog, show date). */
-  leading?: string
-  dim?: boolean
-}) {
+/* ──────────────────────────────────────────────────────────────────
+   Rows
+   ────────────────────────────────────────────────────────────────── */
+
+/** Title + arrow. Used for Sets and Video (host is obvious from the section). */
+function SimpleRow({ href, title }: { href: string; title: string }) {
   return (
-    <li className={dim ? 'opacity-50' : undefined}>
+    <li>
       <a
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className="group grid grid-cols-[1fr_auto] gap-x-4 sm:gap-x-6 items-baseline py-3 transition-colors"
+        className="group flex items-center justify-between gap-x-4 py-3 transition-colors"
       >
-        <span className="min-w-0 flex flex-col sm:flex-row sm:items-baseline sm:gap-5">
-          {leading && (
-            <span className="shrink-0 text-[11px] uppercase tracking-[0.18em] text-foreground/40 whitespace-nowrap sm:min-w-[7rem]">
-              {leading}
-            </span>
-          )}
-          <span className="text-[15px] sm:text-[15px] font-light text-foreground/85 group-hover:text-foreground transition-colors truncate">
-            {title}
-          </span>
+        <span className="min-w-0 truncate text-[15px] font-light text-foreground/85 group-hover:text-foreground transition-colors">
+          {title}
         </span>
-        <span className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.18em] text-foreground/35 group-hover:text-foreground transition-colors whitespace-nowrap">
-          {meta ?? ''}
-          <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={1.25} />
-        </span>
+        <ArrowUpRight
+          className="h-3.5 w-3.5 shrink-0 text-foreground/30 group-hover:text-foreground transition-colors"
+          strokeWidth={1.25}
+        />
       </a>
     </li>
   )
 }
 
+/**
+ * Catalog/type tag + title + arrow. The catalog ("4UH.007") or non-album
+ * type ("live", "remix") sits left; "album" is treated as default and not
+ * surfaced. Titles in the data often already carry "[live]" — that stays.
+ */
 function ReleaseRow({ release }: { release: Release }) {
+  const leading =
+    release.catalog ?? (release.type && release.type !== 'album' ? release.type : undefined)
   return (
-    <Row
-      href={release.url}
-      leading={release.catalog ?? release.type}
-      title={release.title}
-      meta={hostLabel(release.url)}
-    />
+    <li>
+      <a
+        href={release.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group grid grid-cols-[1fr_auto] items-baseline gap-x-4 py-3 transition-colors"
+      >
+        <span className="flex min-w-0 items-baseline gap-4">
+          {leading && (
+            <span className="shrink-0 min-w-[4.5rem] text-[11px] uppercase tracking-[0.18em] text-foreground/40 whitespace-nowrap">
+              {leading}
+            </span>
+          )}
+          <span className="truncate text-[15px] font-light text-foreground/85 group-hover:text-foreground transition-colors">
+            {release.title}
+          </span>
+        </span>
+        <ArrowUpRight
+          className="h-3.5 w-3.5 text-foreground/30 group-hover:text-foreground transition-colors"
+          strokeWidth={1.25}
+        />
+      </a>
+    </li>
   )
 }
 
+/** Date + title (with venue/location) + arrow. Date column on sm+, stacked on mobile. */
 function ShowRow({ show, dim }: { show: Show; dim?: boolean }) {
   const venuePart = show.venue && show.venue !== 'TBA' ? ` — ${show.venue}` : ''
   const locPart = show.location && show.location !== 'TBA' ? `, ${show.location}` : ''
   return (
-    <Row
-      href={show.url}
-      leading={show.date}
-      title={`${show.title}${venuePart}${locPart}`}
-      meta={!show.isPast && show.isTicketLink ? 'Tickets' : hostLabel(show.url)}
-      dim={dim}
-    />
+    <li className={dim ? 'opacity-50' : undefined}>
+      <a
+        href={show.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group grid grid-cols-[1fr_auto] items-baseline gap-x-4 py-3 transition-colors"
+      >
+        <span className="flex min-w-0 flex-col sm:flex-row sm:items-baseline sm:gap-4">
+          <span className="shrink-0 text-[11px] uppercase tracking-[0.18em] text-foreground/40 whitespace-nowrap sm:min-w-[7rem]">
+            {show.date}
+          </span>
+          <span className="truncate text-[15px] font-light text-foreground/85 group-hover:text-foreground transition-colors">
+            {show.title}
+            {venuePart}
+            {locPart}
+          </span>
+        </span>
+        <ArrowUpRight
+          className="h-3.5 w-3.5 text-foreground/30 group-hover:text-foreground transition-colors"
+          strokeWidth={1.25}
+        />
+      </a>
+    </li>
   )
-}
-
-function hasAnyLink(artist: Artist): boolean {
-  const { spotify, soundcloud, bandcamp, ra, instagram, twitter, extra } = artist.links
-  if (spotify || soundcloud || bandcamp || ra || instagram || twitter) return true
-  return !!extra && extra.length > 0
-}
-
-function hostLabel(url: string): string {
-  try {
-    const host = new URL(url).hostname.replace(/^www\./, '')
-    if (host.includes('bandcamp')) return 'Bandcamp'
-    if (host.includes('spotify')) return 'Spotify'
-    if (host.includes('soundcloud')) return 'SoundCloud'
-    if (host.includes('ra.co')) return 'RA'
-    if (host.includes('youtube') || host.includes('youtu.be')) return 'YouTube'
-    if (host.includes('posh')) return 'Posh'
-    return ''
-  } catch {
-    return ''
-  }
 }
