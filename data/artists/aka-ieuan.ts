@@ -48,6 +48,7 @@ export const akaIeuan: Artist = {
     { videoId: 'jB0BhBb6szk', title: 'Techno Mix // aka ieuan // Le Petit Box Radio 110' },
     { videoId: '87kn2h5dQJk', title: 'AKA[IEUAN] | Hypnotic Techno & Hard-Groove | TiNC MIXTAPE 021' },
     { videoId: '_POM7LKmdnk', title: 'AKA[IEUAN] | Hypnotic Techno Set // 078' },
+    { videoId: '7fXaiPon6Cc', title: 'AKA IEUAN | BELOW GRŪND | JUNE 5 | 2026' },
   ],
 
   releases: [
