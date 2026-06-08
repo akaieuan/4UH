@@ -11,12 +11,14 @@ export default function AboutPage() {
       title="Music 4 Ur Health."
       subtitle="A label bringing healthy sounding techno to NYC."
     >
-      <section className="max-w-2xl">
-        <p className="text-[11px] uppercase tracking-[0.22em] text-foreground/40 font-light mb-3">
-          Healthy
+      <section className="max-w-2xl space-y-4 text-sm font-light leading-relaxed text-foreground/70">
+        <p>
+          4UHNYC was founded to connect the NYC sound with a global network of
+          underground producers crafting healthy, hypnotic techno.
         </p>
-        <p className="text-sm font-light leading-relaxed text-foreground/70">
-          Non-consumer.
+        <p>
+          4UH is both a place for artists to release and perform techno music
+          curated for New Yorkers by New Yorkers.
         </p>
       </section>
 
