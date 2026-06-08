@@ -127,6 +127,7 @@ export const akaIeuan: Artist = {
     soundcloud: 'https://soundcloud.com/akaieuan',
     bandcamp: 'https://akaieuan.bandcamp.com',
     ra: 'https://ra.co/dj/akaieuan',
+    instagram: 'https://www.instagram.com/aka.ieuan/',
   },
 
   fka: {
