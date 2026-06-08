@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
-import { Pixelate } from '@/components/effects/pixelate'
 import { PageShell } from '@/components/layout/page-shell'
 import { artistList } from '@/data/artists'
 
@@ -20,8 +19,8 @@ export default function ArtistsIndexPage() {
               className="group grid grid-cols-[1fr_auto] gap-x-6 items-baseline py-4 transition-colors"
             >
               <span className="min-w-0 flex flex-col sm:flex-row sm:items-baseline sm:gap-6">
-                <span className="text-lg sm:text-xl font-light text-foreground tracking-tight">
-                  <Pixelate text={artist.name} trigger="hover" duration={900} />
+                <span className="text-lg sm:text-xl font-light text-foreground tracking-tight group-hover:opacity-90 transition-opacity">
+                  {artist.name}
                 </span>
                 <span className="text-[12px] sm:text-[13px] font-light text-foreground/50 truncate">
                   {[artist.location, artist.tagline].filter(Boolean).join(' · ')}

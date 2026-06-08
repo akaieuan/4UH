@@ -1,4 +1,5 @@
 import { PageShell } from '@/components/layout/page-shell'
+import { Pixelate } from '@/components/effects/pixelate'
 
 export const metadata = {
   title: 'About — 4UHNYC',
@@ -8,21 +9,16 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <PageShell
-      title="Music 4 Ur Health."
+      title={<Pixelate text="Music 4 Ur Health." duration={1400} />}
       subtitle="A label bringing healthy sounding techno to NYC."
     >
       <section className="max-w-2xl space-y-4 text-sm font-light leading-relaxed text-foreground/70">
         <p>
           4UHNYC was founded to connect the NYC sound with a global network of
-          underground producers crafting healthy, hypnotic techno.
+          underground producers crafting healthy, hypnotic techno — a label
+          and a stage for artists to release and perform on, curated for New
+          Yorkers by New Yorkers.
         </p>
-        <p>
-          4UH is both a place for artists to release and perform techno music
-          curated for New Yorkers by New Yorkers.
-        </p>
-      </section>
-
-      <section className="mt-12 sm:mt-16 max-w-2xl space-y-4 text-sm font-light leading-relaxed text-foreground/70">
         <p>
           Consumer culture and the product of authenticity has changed DJ and
           production culture in techno music to be more spectacle than craft.

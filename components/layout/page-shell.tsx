@@ -4,10 +4,11 @@ import { cn } from '@/lib/utils'
 
 interface PageShellProps {
   children: ReactNode
-  /** Page title rendered as `<h1>`. */
-  title?: string
+  /** Page title rendered as `<h1>`. Accepts a string or a node (so a
+   *  text-animation component like `<Pixelate />` can be passed in). */
+  title?: ReactNode
   /** One-line lede beneath the title. */
-  subtitle?: string
+  subtitle?: ReactNode
   /** Show the back link at the top of the page. Defaults to `true`. */
   back?: boolean
   /** Where the back link points. Defaults to `/`. */
